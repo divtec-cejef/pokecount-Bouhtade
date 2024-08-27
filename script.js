@@ -8,7 +8,7 @@
 
 //Déclaration et initialisation du compteur de captures
 let compteur = 0;
-//Récupère l'élément qui a l'ID "compteur-el"
+//Récupère l'élément qui a l'ID "compteur el"
 const compteurEl = document.getElementById('compteur-el');
 const sauvegardeEl = document.getElementById('sauvegarde-liste');
 
@@ -31,10 +31,12 @@ function capturer() {
 //Fonction qui sauvegarde les captures et réinitialise le compteur
 function sauvegarder() {
     //console.log('sauvegarder');
-    sauvegardeEl.textContent += ` ${compteur} pokémons | `;
+    //sauvegardeEl.textContent += ` ${compteur} pokémons | `;
     //Sauvegarde l'historique des captures en local
-    localStorage.setItem("captures", 'Mes captures : ' + sauvegardeEl.textContent);
-    sauvegardeEl.innerHTML += <li></li>
+    //localStorage.setItem("captures", 'Mes captures : ' + sauvegardeEl.textContent);
+    //localStorage.setItem("captures", 'Mes captures : ' + sauvegardeEl.textContent);
+    sauvegardeEl.innerHTML += `<li>${compteur} pokémons</li>`;
+    localStorage.setItem("captures", sauvegardeEl.innerHTML);
     compteur = 0;
     compteurEl.textContent = compteur;
     compteurEl.style.color = 'black';
@@ -43,8 +45,8 @@ function sauvegarder() {
 //Fonction qui vide le storage
 function reset() {
     localStorage.clear();
-    localStorage.setItem("captures", 'Mes captures : ');
-    sauvegardeEl.textContent = localStorage.getItem("captures");
+    localStorage.setItem("captures", '<li>Mes captures : </li>');
+    sauvegardeEl.innerHTML = localStorage.getItem("captures");
 }
 
 //Ecouter les événements
@@ -54,5 +56,5 @@ document.getElementById('reset-btn').addEventListener('click', reset);
 
 //Quand l'onglet a fini de charger
 window.addEventListener('load', () => {
-    sauvegardeEl.textContent = localStorage.getItem("captures");
+    sauvegardeEl.innerHTML = localStorage.getItem("captures");
 });
